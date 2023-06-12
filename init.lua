@@ -15,6 +15,16 @@ return packer.startup(function(use)
     -- Manage packer with packer.
     use { "wbthomason/packer.nvim" }
 
+    -- Gruvbox colorscheme.
+    use {
+        "ellisonleao/gruvbox.nvim",
+        config = function()
+            require("gruvbox").setup { contrast = "hard" }
+            vim.o.background = "dark"
+            vim.cmd.colorscheme("gruvbox")
+        end,
+    }
+
     -- Automatically set up from the configuration after cloning packer.nvim.
     -- Keep this at the end after all plugins.
     if bootstrapping then packer.sync() end
