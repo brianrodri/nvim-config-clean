@@ -26,7 +26,15 @@ return packer.startup(function(use)
     }
 
     -- Enhance syntax tree of neovim (depended on by most plugins)
-    use { "nvim-treesitter/nvim-treesitter", run = function() pcall(vim.fn.TSUpdate) end }
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        run = function() pcall(vim.fn.TSUpdate) end,
+        config = function()
+            require("nvim-treesitter.configs").setup {
+                ensure_installed = { "java", "javascript", "lua", "python", "typescript" },
+            }
+        end
+    }
 
     -- Automatically set up from the configuration after cloning packer.nvim.
     -- Keep this at the end after all plugins.
