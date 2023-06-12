@@ -25,6 +25,12 @@ return packer.startup(function(use)
         end,
     }
 
+    -- Auto-detect indentation style from file.
+    use {
+        "nmac427/guess-indent.nvim",
+        config = function() require("guess-indent").setup {} end
+    }
+
     -- Enhance syntax tree of neovim (depended on by most plugins)
     use {
         "nvim-treesitter/nvim-treesitter",
