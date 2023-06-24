@@ -11,7 +11,7 @@ end
 local freshly_installed = ensure_packer()
 local packer = require("packer")
 
-return packer.startup(function(use)
+packer.startup(function(use)
     -- Manage packer with packer.
     use { "wbthomason/packer.nvim" }
 
@@ -40,6 +40,22 @@ return packer.startup(function(use)
                 ensure_installed = { "java", "javascript", "lua", "python", "typescript" },
             }
         end,
+    }
+
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v2.x',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},             -- Required
+            {'williamboman/mason.nvim', run = function() pcall(vim.cmd, 'MasonUpdate') end},
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},     -- Required
+            {'hrsh7th/cmp-nvim-lsp'}, -- Required
+            {'L3MON4D3/LuaSnip'},     -- Required
+        },
+        config = function() require("my.lsp-zero").setup() end,
     }
 
     if freshly_installed then packer.sync() end
