@@ -43,6 +43,7 @@ M.remap_file_actions = function()
     vim.keymap.set("n", "<leader>X", ":q!<CR>")
     vim.keymap.set("n", "<leader>e", ":e! %<CR>")
     vim.keymap.set("n", "<leader>w", ":w<CR>")
+    vim.keymap.set("n", "<leader><C-w>", ":w | source %<CR>")
     vim.keymap.set("n", "<leader>x", ":bdelete!<CR>")
     vim.keymap.set("n", "ZA", ":qa!<CR>")
 end
