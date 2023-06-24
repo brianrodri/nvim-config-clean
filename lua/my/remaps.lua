@@ -7,6 +7,7 @@ M.setup = function()
     M.remap_file_actions()
     M.remap_nvim_tree_actions()
     M.remap_packer_actions()
+    M.remap_telescope_actions()
     M.remap_window_actions()
 end
 
@@ -21,6 +22,8 @@ M.set_lsp_mappings = function(opts)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts)
+
+    M.remap_telescope_lsp_actions(opts)
 end
 
 M.remap_clipboard_actions = function()
@@ -54,6 +57,19 @@ end
 
 M.remap_packer_actions = function()
     vim.keymap.set("n", "<leader><C-U>", vim.cmd.PackerSync)
+end
+
+M.remap_telescope_actions = function()
+    local telescope_builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {})
+    vim.keymap.set("n", "<leader>f/", telescope_builtin.live_grep, {})
+    vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
+    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_references, {})
+end
+
+M.remap_telescope_lsp_actions = function(opts)
+    local telescope_builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_document_symbols, opts)
 end
 
 M.remap_window_actions = function()
