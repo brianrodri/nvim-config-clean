@@ -54,6 +54,7 @@ local setup_packer = function(use)
         end,
     }
 
+    -- Intuitive LSP resolver
     use {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v2.x",
