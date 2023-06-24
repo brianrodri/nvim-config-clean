@@ -12,10 +12,10 @@ local freshly_installed = ensure_packer()
 local packer = require("packer")
 
 return packer.startup(function(use)
-    -- Manage packer with packer.
+    -- Manage packer with packer
     use { "wbthomason/packer.nvim" }
 
-    -- Gruvbox colorscheme.
+    -- Gruvbox colorscheme
     use {
         "ellisonleao/gruvbox.nvim",
         config = function()
@@ -25,10 +25,35 @@ return packer.startup(function(use)
         end,
     }
 
-    -- Auto-detect indentation style from file.
+    -- Auto-detect indentation style from file
     use {
         "nmac427/guess-indent.nvim",
         config = function() require("guess-indent").setup {} end,
+    }
+
+    -- Intuitive tree explorer
+    use {
+        "nvim-tree/nvim-tree.lua",
+        config = function()
+            require("nvim-tree").setup({
+                sort_by = "case_sensitive",
+                view = {
+                    width = 30,
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = true,
+                },
+            })
+        end,
+    }
+
+    -- Tmux/vim window interactions
+    use {
+        "aserowy/tmux.nvim",
+        config = function() require("tmux").setup() end,
     }
 
     -- Enhance syntax tree of neovim (depended on by most plugins)
