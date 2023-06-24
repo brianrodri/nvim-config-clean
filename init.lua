@@ -8,7 +8,7 @@ local ensure_packer = function()
     return false
 end
 
-local bootstrapping = ensure_packer()
+local freshly_installed = ensure_packer()
 local packer = require("packer")
 
 return packer.startup(function(use)
@@ -28,7 +28,7 @@ return packer.startup(function(use)
     -- Auto-detect indentation style from file.
     use {
         "nmac427/guess-indent.nvim",
-        config = function() require("guess-indent").setup {} end
+        config = function() require("guess-indent").setup {} end,
     }
 
     -- Enhance syntax tree of neovim (depended on by most plugins)
@@ -39,10 +39,8 @@ return packer.startup(function(use)
             require("nvim-treesitter.configs").setup {
                 ensure_installed = { "java", "javascript", "lua", "python", "typescript" },
             }
-        end
+        end,
     }
 
-    -- Automatically set up from the configuration after cloning packer.nvim.
-    -- Keep this at the end after all plugins.
-    if bootstrapping then packer.sync() end
+    if freshly_installed then packer.sync() end
 end)
