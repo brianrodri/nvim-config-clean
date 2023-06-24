@@ -6,8 +6,9 @@ local setup_packer = function(use)
     use {
         "ellisonleao/gruvbox.nvim",
         config = function()
+            vim.opt.termguicolors = true
+            vim.opt.background = "dark"
             require("gruvbox").setup { contrast = "hard" }
-            vim.o.background = "dark"
             vim.cmd.colorscheme("gruvbox")
         end,
     }
@@ -80,6 +81,35 @@ local setup_packer = function(use)
 
     -- Perfect lua/vim LSP
     use { "folke/neodev.nvim" }
+
+    -- Pretty IDE-like buffer tabs
+    use {
+        "akinsho/bufferline.nvim",
+        tag = "*",
+        requires = "nvim-tree/nvim-web-devicons",
+        config = function()
+            require("bufferline").setup {
+                options = {
+                    color_icons = true,
+                    diagnostics = "nvim_lsp",
+                    separator_style = require("bufferline.constants").sep_names.slant,
+                    show_buffer_close_icons = false,
+                    show_buffer_icons = true,
+                    show_duplicate_prefix = true,
+                },
+            }
+        end,
+    }
+
+    use {
+        "nvim-lualine/lualine.nvim",
+        config = function()
+            require("lualine").setup {
+                theme = "gruvbox_dark",
+                extensions = { "nvim-tree" },
+            }
+        end,
+    }
 end
 
 local ensure_packer = function()
