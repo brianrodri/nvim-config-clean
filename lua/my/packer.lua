@@ -61,7 +61,7 @@ local setup_packer = function(use)
         requires = {
             -- LSP Support
             {"neovim/nvim-lspconfig"},             -- Required
-            {"williamboman/mason.nvim", run = function() pcall(vim.cmd, "MasonUpdate") end},
+            {"williamboman/mason.nvim", run = function() pcall(vim.cmd, "MasonUpdate") end}, -- Required
             {"williamboman/mason-lspconfig.nvim"}, -- Optional
             -- Autocompletion
             {"hrsh7th/nvim-cmp"},     -- Required
@@ -78,6 +78,8 @@ local setup_packer = function(use)
         requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
     }
 
+    -- Perfect lua/vim LSP
+    use { "folke/neodev.nvim" }
 end
 
 local ensure_packer = function()
