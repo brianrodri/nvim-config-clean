@@ -8,6 +8,8 @@ local ensure_packer = function()
     return false
 end
 
+require("my.remaps").setup()
+
 local freshly_installed = ensure_packer()
 local packer = require("packer")
 
