@@ -70,6 +70,14 @@ local setup_packer = function(use)
         },
         config = function() require("my.lsp-zero").setup() end,
     }
+
+    -- Intuitive FZF experience
+    use {
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.1",
+        requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
+    }
+
 end
 
 local ensure_packer = function()
