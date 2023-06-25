@@ -11,7 +11,7 @@ function M.setup_plugins(use)
     M.setup_search_plugins(use)
     M.setup_statusline_plugins(use)
     M.setup_tmux_plugins(use)
-    M.setup_window_plugins(use)
+    M.setup_buffer_plugins(use)
     M.setup_work_plugins(use)
 end
 
@@ -64,7 +64,7 @@ function M.setup_search_plugins(use)
     use "nvim-telescope/telescope-ui-select.nvim"
 end
 
-function M.setup_window_plugins(use)
+function M.setup_buffer_plugins(use)
     use { "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" }
 end
 

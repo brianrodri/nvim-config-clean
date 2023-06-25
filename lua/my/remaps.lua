@@ -75,12 +75,11 @@ M.remap_telescope_actions = function()
     vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {})
     vim.keymap.set("n", "<leader>f/", telescope_builtin.live_grep, {})
     vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
-    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_references, {})
 end
 
 M.remap_telescope_lsp_actions = function(opts)
     local telescope_builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_document_symbols, opts)
+    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_references, opts)
 end
 
 M.remap_window_actions = function()
