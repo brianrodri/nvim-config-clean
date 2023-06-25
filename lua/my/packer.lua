@@ -12,6 +12,7 @@ function M.setup_plugins(use)
     M.setup_statusline_plugins(use)
     M.setup_tmux_plugins(use)
     M.setup_window_plugins(use)
+    M.setup_work_plugins(use)
 end
 
 function M.setup_colorscheme_plugins(use)
@@ -49,7 +50,7 @@ function M.setup_lsp_plugins(use)
         },
     }
 
-    use "folke/neodev.nvim" -- Configures lua_ls
+    use "folke/neodev.nvim"
 end
 
 function M.setup_search_plugins(use)
@@ -71,6 +72,11 @@ end
 
 function M.setup_tmux_plugins(use)
     use "aserowy/tmux.nvim"
+end
+
+function M.setup_work_plugins(use)
+    local is_work, work = pcall(require, "work")
+    if is_work then work.setup_plugins(use) end
 end
 
 function M.setup()

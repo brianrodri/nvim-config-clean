@@ -3,6 +3,7 @@ local M = {}
 function M.setup_lsp()
     local lsp = require("lsp-zero").preset("recommended")
     lsp.on_attach(function(...) M.on_attach(lsp, ...) end)
+    lsp.ensure_installed { "jdtls", "lua_ls" }
     lsp.skip_server_setup { "jdtls" }
     M.setup_lua_lsp()
     lsp.setup()
@@ -17,7 +18,7 @@ function M.setup_cmp()
     local cmp = require("cmp")
     local cmp_action = require("lsp-zero").cmp_action()
 
-    cmp.setup({
+    cmp.setup {
         window = {
             documentation = cmp.config.window.bordered(),
             completion = cmp.config.window.bordered(),
@@ -27,8 +28,8 @@ function M.setup_cmp()
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<Tab>'] = cmp_action.luasnip_supertab(),
             ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-        }
-    })
+        },
+    }
 end
 
 function M.on_attach(lsp, _, bufnr)
