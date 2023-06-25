@@ -1,31 +1,46 @@
-local setup_packer = function(use)
-    -- Manage packer with packer.
-    use { "wbthomason/packer.nvim" }
+local M = {}
 
+function M.setup_packer(use)
+    use "wbthomason/packer.nvim"
+
+    M.setup_colorscheme_plugins(use)
+    M.setup_file_plugins(use)
+    M.setup_git_plugins(use)
+    M.setup_indentation_plugins(use)
+    M.setup_lsp_plugins(use)
+    M.setup_search_plugins(use)
+    M.setup_statusline_plugins(use)
+    M.setup_tmux_plugins(use)
+    M.setup_window_plugins(use)
+end
+
+function M.setup_colorscheme_plugins(use)
+    -- Gruvbox colorscheme
+    use { "eddyekofo94/gruvbox-flat.nvim" }
+end
+
+function M.setup_file_plugins(use)
+    -- Intuitive tree explorer
+    use { "nvim-tree/nvim-tree.lua" }
+end
+
+function M.setup_git_plugins(use)
     -- Perfect Git plugin
     use { "tpope/vim-fugitive" }
 
-    -- Gruvbox colorscheme
-    use { "eddyekofo94/gruvbox-flat.nvim" }
-
     -- Git gutter
     use { "airblade/vim-gitgutter" }
+end
 
+function M.setup_indentation_plugins(use)
     -- Auto-detect indentation style from file
     use {
         "nmac427/guess-indent.nvim",
         config = function() require("guess-indent").setup {} end,
     }
+end
 
-    -- Intuitive tree explorer
-    use { "nvim-tree/nvim-tree.lua" }
-
-    -- Tmux/vim window interactions
-    use {
-        "aserowy/tmux.nvim",
-        config = function() require("tmux").setup() end,
-    }
-
+function M.setup_lsp_plugins(use)
     -- Enhance syntax tree of neovim (depended on by most plugins)
     use { "nvim-treesitter/nvim-treesitter", run = function() pcall(vim.fn.TSUpdate) end }
 
@@ -47,19 +62,33 @@ local setup_packer = function(use)
 
     -- Perfect lua/vim LSP
     use { "folke/neodev.nvim" }
+end
 
+function M.setup_search_plugins(use)
     -- Intuitive FZF experience
     use {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.1",
         requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
     }
+end
 
+function M.setup_window_plugins(use)
     -- Pretty IDE-like buffer tabs
     use { "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" }
+end
 
+function M.setup_statusline_plugins(use)
     -- Pretty status line
     use { "nvim-lualine/lualine.nvim" }
+end
+
+function M.setup_tmux_plugins(use)
+    -- Tmux/vim window interactions
+    use {
+        "aserowy/tmux.nvim",
+        config = function() require("tmux").setup() end,
+    }
 end
 
 local ensure_packer = function()
@@ -80,8 +109,8 @@ return {
         local packer = require("packer")
 
         packer.startup(function(use)
-            setup_packer(use)
+            M.setup_packer(use)
             if freshly_installed then packer.sync() end
         end)
-    end,
+    end
 }
