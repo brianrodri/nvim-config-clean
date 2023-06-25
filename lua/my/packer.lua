@@ -58,6 +58,7 @@ function M.setup_search_plugins(use)
         tag = "0.1.1",
         requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
     }
+    use "nvim-telescope/telescope-ui-select.nvim"
 end
 
 function M.setup_window_plugins(use)
