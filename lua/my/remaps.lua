@@ -15,17 +15,39 @@ end
 
 M.set_lsp_mappings = function(opts)
     vim.bo[opts.buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
-    vim.keymap.set("n", "<leader>K", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<leader>gd", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>gy", vim.lsp.buf.type_definition, opts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts)
+    M.set_lspsaga_mappings(opts)
+end
 
-    M.remap_telescope_lsp_actions(opts)
+M.set_lspsaga_mappings = function(opts)
+    vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts)
+    vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+    vim.keymap.set("n","gD", "<cmd>Lspsaga goto_definition<CR>", opts)
+    vim.keymap.set("n", "gy", "<cmd>Lspsaga peek_type_definition<CR>", opts)
+    vim.keymap.set("n","gY", "<cmd>Lspsaga goto_type_definition<CR>", opts)
+    vim.keymap.set("n", "rn", "<cmd>Lspsaga rename<CR>", opts)
+    vim.keymap.set({"n","v"}, "ga", "<cmd>Lspsaga code_action<CR>", opts)
+
+    vim.keymap.set("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+    vim.keymap.set("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", opts)
+    vim.keymap.set("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
+    vim.keymap.set("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
+
+    vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+    vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+    vim.keymap.set("n", "[E", function()
+      require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
+    vim.keymap.set("n", "]E", function()
+      require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
+
+    -- Toggle outline
+    vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>", opts)
+
+    -- Call hierarchy
+    vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", opts)
+    vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", opts)
 end
 
 M.remap_clipboard_actions = function()
@@ -75,11 +97,6 @@ M.remap_telescope_actions = function()
     vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, {})
     vim.keymap.set("n", "<leader>f/", telescope_builtin.live_grep, {})
     vim.keymap.set("n", "<leader>fb", telescope_builtin.buffers, {})
-end
-
-M.remap_telescope_lsp_actions = function(opts)
-    local telescope_builtin = require("telescope.builtin")
-    vim.keymap.set("n", "<leader>fv", telescope_builtin.lsp_references, opts)
 end
 
 M.remap_window_actions = function()

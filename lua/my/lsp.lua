@@ -16,6 +16,11 @@ function M.setup_lua_lsp()
     }
 end
 
+function M.setup_lspsaga()
+    require("lspsaga").setup {
+    }
+end
+
 function M.setup_cmp()
     local cmp = require("cmp")
     local cmp_action = require("lsp-zero").cmp_action()
@@ -40,6 +45,7 @@ end
 
 function M.on_attach(lsp, _, bufnr)
     local opts = { buffer = bufnr }
+    M.setup_lspsaga()
     lsp.default_keymaps(opts)
     require("my.remaps").set_lsp_mappings(opts)
 end

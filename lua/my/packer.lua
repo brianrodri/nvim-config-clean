@@ -52,6 +52,8 @@ function M.setup_lsp_plugins(use)
     }
 
     use "folke/neodev.nvim"
+
+    use { "glepnir/lspsaga.nvim", branch = "main" }
 end
 
 function M.setup_search_plugins(use)
