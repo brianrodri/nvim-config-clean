@@ -3,16 +3,21 @@ local M = {}
 function M.setup_plugins(use)
     use "wbthomason/packer.nvim"
 
+    M.setup_buffer_plugins(use)
     M.setup_colorscheme_plugins(use)
     M.setup_file_plugins(use)
     M.setup_git_plugins(use)
     M.setup_indentation_plugins(use)
     M.setup_lsp_plugins(use)
+    M.setup_motion_plugins(use)
     M.setup_search_plugins(use)
     M.setup_statusline_plugins(use)
     M.setup_tmux_plugins(use)
-    M.setup_buffer_plugins(use)
     M.setup_work_plugins(use)
+end
+
+function M.setup_buffer_plugins(use)
+    use { "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" }
 end
 
 function M.setup_colorscheme_plugins(use)
@@ -55,6 +60,11 @@ function M.setup_lsp_plugins(use)
 
     use { "glepnir/lspsaga.nvim", branch = "main" }
 end
+function M.setup_motion_plugins(use)
+    use "tpope/vim-surround"
+    use "tpope/vim-unimpaired"
+end
+
 
 function M.setup_search_plugins(use)
     use {
@@ -66,8 +76,8 @@ function M.setup_search_plugins(use)
     use "nvim-telescope/telescope-ui-select.nvim"
 end
 
-function M.setup_buffer_plugins(use)
-    use { "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" }
+function M.setup_register_plugins(use)
+    use "andymass/vim-visput"
 end
 
 function M.setup_statusline_plugins(use)
