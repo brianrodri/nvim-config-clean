@@ -1,17 +1,17 @@
-local function on_attach(lsp, _, bufnr)
-    local opts = { buffer = bufnr }
-    lsp.default_keymaps(opts)
-    require("my.remaps").set_lsp_mappings(opts)
-end
+local M = {}
 
-local function setup_lsp_zero()
+function M.setup_lsp()
     local lsp = require("lsp-zero").preset("recommended")
-    lsp.on_attach(function(...) on_attach(lsp, ...) end)
-    require("neodev").setup({})
+    lsp.on_attach(function(...) M.on_attach(lsp, ...) end)
+    M.setup_lua_lsp()
     lsp.setup()
 end
 
-local function setup_cmp()
+function M.setup_lua_lsp()
+    require("neodev").setup({})
+end
+
+function M.setup_cmp()
     local cmp = require("cmp")
     local cmp_action = require("lsp-zero").cmp_action()
 
@@ -29,9 +29,15 @@ local function setup_cmp()
     })
 end
 
-return {
-    setup = function()
-        setup_lsp_zero()
-        setup_cmp()
-    end,
-}
+function M.on_attach(lsp, _, bufnr)
+    local opts = { buffer = bufnr }
+    lsp.default_keymaps(opts)
+    require("my.remaps").set_lsp_mappings(opts)
+end
+
+function M.setup()
+    M.setup_lsp()
+    M.setup_cmp()
+end
+
+return M

@@ -1,9 +1,18 @@
-local function setup_cursor()
+local M = {}
+
+function M.setup()
+    M.setup_cursor()
+    M.setup_indents()
+    M.setup_rulers()
+    M.setup_wrap()
+end
+
+function M.setup_cursor()
     vim.opt.cursorline = true
     vim.opt.guicursor = ""
 end
 
-local function setup_indents()
+function M.setup_indents()
     vim.opt.tabstop = 4
     vim.opt.softtabstop = 4
     vim.opt.shiftwidth = 4
@@ -11,20 +20,13 @@ local function setup_indents()
     vim.opt.smartindent = true
 end
 
-local function setup_rulers()
+function M.setup_rulers()
     vim.opt.number = true
 end
 
-local function setup_wrap()
+function M.setup_wrap()
     vim.opt.textwidth = 120
     vim.opt.wrap = false
 end
 
-return {
-    setup = function()
-        setup_cursor()
-        setup_indents()
-        setup_rulers()
-        setup_wrap()
-    end,
-}
+return M
