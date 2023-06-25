@@ -3,12 +3,14 @@ local M = {}
 function M.setup_lsp()
     local lsp = require("lsp-zero").preset("recommended")
     lsp.on_attach(function(...) M.on_attach(lsp, ...) end)
+    lsp.skip_server_setup { "jdtls" }
     M.setup_lua_lsp()
     lsp.setup()
 end
 
 function M.setup_lua_lsp()
-    require("neodev").setup({})
+    require("neodev").setup {
+    }
 end
 
 function M.setup_cmp()
