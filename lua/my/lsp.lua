@@ -19,15 +19,19 @@ function M.setup_cmp()
     local cmp_action = require("lsp-zero").cmp_action()
 
     cmp.setup {
-        window = {
-            documentation = cmp.config.window.bordered(),
-            completion = cmp.config.window.bordered(),
-        },
         mapping = {
             ['<CR>'] = cmp.mapping.confirm { select = false },
             ['<C-Space>'] = cmp.mapping.complete(),
             ['<Tab>'] = cmp_action.luasnip_supertab(),
             ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+        },
+        sources = {
+            { name = "nvim_lsp" },
+            { name = "buffer" },
+        },
+        window = {
+            documentation = cmp.config.window.bordered(),
+            completion = cmp.config.window.bordered(),
         },
     }
 end
