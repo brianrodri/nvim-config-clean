@@ -5,6 +5,7 @@ M.setup = function()
 
     M.remap_clipboard_actions()
     M.remap_file_actions()
+    M.remap_git_actions()
     M.remap_nvim_tree_actions()
     M.remap_packer_actions()
     M.remap_telescope_actions()
@@ -49,6 +50,10 @@ M.remap_file_actions = function()
     vim.keymap.set("n", "<leader><C-w>", ":w | source %<CR>")
     vim.keymap.set("n", "<leader>x", ":bdelete!<CR>")
     vim.keymap.set("n", "ZA", ":qa!<CR>")
+end
+
+M.remap_git_actions = function()
+    vim.keymap.set("n", "gK", vim.cmd.GitGutterPreviewHunk)
 end
 
 M.remap_nvim_tree_actions = function()

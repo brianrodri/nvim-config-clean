@@ -21,6 +21,7 @@
         "/Users/brianrz/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua",
         "/Users/brianrz/.local/share/nvim/site/pack/packer/start/tmux.nvim/lua",
         "/Users/brianrz/.config/nvim/lua",
+        "${3rd}/luv/library",
         "${3rd}/luv/library"
     ]
 }
