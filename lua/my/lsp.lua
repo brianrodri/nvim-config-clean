@@ -2,10 +2,12 @@ local M = {}
 
 function M.setup_lsp()
     local lsp = require("lsp-zero").preset("recommended")
-    lsp.on_attach(function(...) M.on_attach(lsp, ...) end)
     lsp.ensure_installed { "jdtls", "lua_ls" }
     lsp.skip_server_setup { "jdtls" }
+    lsp.on_attach(function(...) M.on_attach(lsp, ...) end)
+
     M.setup_lua_lsp()
+
     lsp.setup()
 end
 

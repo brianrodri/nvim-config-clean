@@ -43,6 +43,7 @@ function M.setup_lsp_plugins(use)
         branch = "v2.x",
         requires = {
             "neovim/nvim-lspconfig",
+            "williamboman/mason-lspconfig.nvim",
             "williamboman/mason.nvim",
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
