@@ -27,15 +27,7 @@ local setup_packer = function(use)
     }
 
     -- Enhance syntax tree of neovim (depended on by most plugins)
-    use {
-        "nvim-treesitter/nvim-treesitter",
-        run = function() pcall(vim.fn.TSUpdate) end,
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = { "java", "javascript", "lua", "python", "typescript" },
-            }
-        end,
-    }
+    use { "nvim-treesitter/nvim-treesitter", run = function() pcall(vim.fn.TSUpdate) end }
 
     -- Intuitive LSP resolver
     use {
@@ -44,15 +36,17 @@ local setup_packer = function(use)
         requires = {
             -- LSP Support
             {"neovim/nvim-lspconfig"},             -- Required
-            {"williamboman/mason.nvim", run = function() pcall(vim.cmd, "MasonUpdate") end}, -- Required
+            {"williamboman/mason.nvim", run = function() pcall(vim.cmd.MasonUpdate) end}, -- Required
             {"williamboman/mason-lspconfig.nvim"}, -- Optional
             -- Autocompletion
             {"hrsh7th/nvim-cmp"},     -- Required
             {"hrsh7th/cmp-nvim-lsp"}, -- Required
             {"L3MON4D3/LuaSnip"},     -- Required
         },
-        config = function() require("my.lsp-zero").setup() end,
     }
+
+    -- Perfect lua/vim LSP
+    use { "folke/neodev.nvim" }
 
     -- Intuitive FZF experience
     use {
@@ -61,12 +55,10 @@ local setup_packer = function(use)
         requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
     }
 
-    -- Perfect lua/vim LSP
-    use { "folke/neodev.nvim" }
-
     -- Pretty IDE-like buffer tabs
     use { "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" }
 
+    -- Pretty status line
     use { "nvim-lualine/lualine.nvim" }
 end
 
