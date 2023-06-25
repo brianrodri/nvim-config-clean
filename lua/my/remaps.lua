@@ -3,6 +3,7 @@ local M = {}
 M.setup = function()
     vim.g.mapleader = " "
 
+    M.remap_buffer_actions()
     M.remap_clipboard_actions()
     M.remap_file_actions()
     M.remap_git_actions()
@@ -41,6 +42,11 @@ M.remap_clipboard_actions = function()
     vim.keymap.set("n", "<leader>P", '"+P')
     vim.keymap.set("v", "<leader>P", '"+P')
     vim.keymap.set("n", "<leader>%", ':let @"=@%<CR>')
+end
+
+M.remap_buffer_actions = function()
+    vim.keymap.set("n", "[b", vim.cmd.bN)
+    vim.keymap.set("n", "]b", vim.cmd.bn)
 end
 
 M.remap_file_actions = function()

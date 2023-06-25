@@ -16,7 +16,7 @@ function M.setup_plugins(use)
 end
 
 function M.setup_colorscheme_plugins(use)
-    use "eddyekofo94/gruvbox-flat.nvim"
+    use "morhetz/gruvbox"
 end
 
 function M.setup_file_plugins(use)
@@ -60,6 +60,7 @@ function M.setup_search_plugins(use)
         tag = "0.1.1",
         requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" }
     }
+    use "gbrlsnchs/telescope-lsp-handlers.nvim"
     use "nvim-telescope/telescope-ui-select.nvim"
 end
 
