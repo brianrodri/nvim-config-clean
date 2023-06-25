@@ -1,12 +1,3 @@
-local function setup_gruvbox_flat()
-    vim.opt.termguicolors = true
-    vim.g.gruvbox_sidebars = { "qf", "terminal", "packer" }
-    vim.g.gruvbox_dark_float = true
-    vim.g.gruvbox_flat_style = "dark"
-    -- vim.g.gruvbox_colors = { define = "red" }
-    vim.cmd.colorscheme("gruvbox-flat")
-end
-
 local function setup_bufferline()
     require("bufferline").setup {
         options = {
@@ -18,12 +9,6 @@ local function setup_bufferline()
             show_duplicate_prefix = true,
         },
     }
-end
-
-local function setup_gitgutter()
-    vim.g.gitgutter_override_sign_column_highlight=1
-    vim.g.gitgutter_preview_win_floating = 1
-    -- vim.g.gitgutter_floating_window_options["border"] = "shadow"
 end
 
 local function setup_lualine()
@@ -50,8 +35,6 @@ end
 
 return {
     setup = function()
-        setup_gruvbox_flat()
-        setup_gitgutter()
         setup_nvim_tree()
         setup_bufferline()
         setup_lualine()
