@@ -1,1 +1,2 @@
-require("guess-indent").setup {}
+require("guess-indent").setup {
+}

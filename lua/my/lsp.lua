@@ -18,6 +18,8 @@ end
 
 function M.setup_lspsaga()
     require("lspsaga").setup {
+        ui = { border = "rounded" },
+        rename = { in_select = false },
     }
 end
 

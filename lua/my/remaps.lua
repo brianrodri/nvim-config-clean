@@ -25,7 +25,6 @@ M.set_lspsaga_mappings = function(opts)
     vim.keymap.set("n","gD", "<cmd>Lspsaga goto_definition<CR>", opts)
     vim.keymap.set("n", "gy", "<cmd>Lspsaga peek_type_definition<CR>", opts)
     vim.keymap.set("n","gY", "<cmd>Lspsaga goto_type_definition<CR>", opts)
-    vim.keymap.set("n", "rn", "<cmd>Lspsaga rename<CR>", opts)
     vim.keymap.set({"n","v"}, "ga", "<cmd>Lspsaga code_action<CR>", opts)
 
     vim.keymap.set("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
@@ -42,10 +41,8 @@ M.set_lspsaga_mappings = function(opts)
       require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
     end, opts)
 
-    -- Toggle outline
     vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>", opts)
-
-    -- Call hierarchy
+    vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
     vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", opts)
     vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", opts)
 end

@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
     M.setup_cursor()
     M.setup_indents()
+    M.setup_updatetime()
     M.setup_rulers()
     M.setup_wrap()
 end
@@ -18,6 +19,10 @@ function M.setup_indents()
     vim.opt.shiftwidth = 4
     vim.opt.expandtab = true
     vim.opt.smartindent = true
+end
+
+function M.setup_updatetime()
+    vim.opt.updatetime = 100
 end
 
 function M.setup_rulers()
