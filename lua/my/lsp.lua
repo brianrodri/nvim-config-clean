@@ -1,4 +1,3 @@
-local my_icons = require("my.icons")
 local my_remaps = require("my.remaps")
 
 local function on_attach(client, bufnr)
@@ -6,15 +5,6 @@ local function on_attach(client, bufnr)
 
     if caps.semanticTokensProvider then
         vim.lsp.semantic_tokens.start(bufnr, client.id)
-
-        if caps.semanticTokensProvider.full then
-            vim.api.nvim_create_autocmd("TextChanged", {
-                group = vim.api.nvim_create_augroup("SemanticTokens", {}),
-                buffer = bufnr,
-                callback = vim.lsp.buf.semantic_tokens_full,
-            })
-            vim.lsp.buf.semantic_tokens_full()
-        end
     end
 
     if caps.codeLensProvider then
