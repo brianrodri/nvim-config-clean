@@ -2,11 +2,18 @@ local my_icons = require("my.icons")
 local my_remaps = require("my.remaps")
 
 local function on_attach(client, bufnr)
-    if client.server_capabilities.semanticTokensProvider then
-        vim.lsp.semantic_tokens.start(bufnr, client.id)
+    local caps = client.server_capabilities
+
+    if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+      pcall(vim.lsp.buf.semantic_tokens_full)
+      vim.api.nvim_create_autocmd("TextChanged", {
+        group = vim.api.nvim_create_augroup("SemanticTokens", {}),
+        buffer = bufnr,
+        callback = function() pcall(vim.lsp.buf.semantic_tokens_full) end,
+      })
     end
 
-    if client.server_capabilities.codeLensProvider then
+    if caps.codeLensProvider then
         pcall(vim.lsp.codelens.refresh)
         vim.api.nvim_create_autocmd("BufWritePost", {
             buffer = bufnr,
