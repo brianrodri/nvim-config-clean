@@ -4,13 +4,17 @@ local my_remaps = require("my.remaps")
 local function on_attach(client, bufnr)
     local caps = client.server_capabilities
 
-    if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
-      pcall(vim.lsp.buf.semantic_tokens_full)
-      vim.api.nvim_create_autocmd("TextChanged", {
-        group = vim.api.nvim_create_augroup("SemanticTokens", {}),
-        buffer = bufnr,
-        callback = function() pcall(vim.lsp.buf.semantic_tokens_full) end,
-      })
+    if caps.semanticTokensProvider then
+        vim.lsp.semantic_tokens.start(bufnr, client.id)
+
+        if caps.semanticTokensProvider.full then
+            pcall(vim.lsp.buf.semantic_tokens_full)
+            vim.api.nvim_create_autocmd("TextChanged", {
+                group = vim.api.nvim_create_augroup("SemanticTokens", {}),
+                buffer = bufnr,
+                callback = function() pcall(vim.lsp.buf.semantic_tokens_full) end,
+            })
+        end
     end
 
     if caps.codeLensProvider then
