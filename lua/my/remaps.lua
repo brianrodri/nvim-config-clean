@@ -13,38 +13,69 @@ M.setup = function()
     M.remap_window_actions()
 end
 
-M.set_lsp_mappings = function(opts)
-    vim.bo[opts.buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
+M.on_lsp_attach = function(client, bufnr)
+    local opts = { buffer = bufnr }
+    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
     M.set_lspsaga_mappings(opts)
+    if client.name == "jdtls" then M.set_jdtls_mappings(opts) end
+end
+
+M.on_dap_attach = function(_, bufnr)
+    M.set_dap_mappings { buffer = bufnr }
+end
+
+function M.set_jdtls_mappings(opts)
+    local jdtls = require("jdtls")
+    vim.keymap.set("n", "<C-y>", jdtls.organize_imports, opts)
+    vim.keymap.set("n", "<leader>ta", jdtls.test_class, opts)
+    vim.keymap.set("n", "<leader>tt", jdtls.test_nearest_method, opts)
+    vim.keymap.set("n", "<leader>t/", jdtls.pick_test, opts)
+    vim.keymap.set("n", "<leader>xv", jdtls.extract_variable, opts)
+    vim.keymap.set("n", "<leader>xV", jdtls.extract_variable_all, opts)
+    vim.keymap.set("n", "<leader>xc", jdtls.extract_constant, opts)
+    vim.keymap.set("n", "<leader>xm", jdtls.extract_method, opts)
+    vim.keymap.set("v", "<leader>xv", function() jdtls.extract_variable { visual = true } end, opts)
+    vim.keymap.set("v", "<leader>xV", function() jdtls.extract_variable_all { visual = true } end, opts)
+    vim.keymap.set("v", "<leader>xc", function() jdtls.extract_constant { visual = true } end, opts)
+    vim.keymap.set("v", "<leader>xm", function() jdtls.extract_method { visual = true } end, opts)
+end
+
+function M.set_dap_mappings(opts)
+    local dap = require("dap")
+    vim.keymap.set("n", "<Leader>B", dap.toggle_breakpoint, opts)
+    vim.keymap.set("n", "<leader>bn", dap.continue, opts)
+    vim.keymap.set("n", "<leader>bl", dap.step_over, opts)
+    vim.keymap.set("n", "<leader>bj", dap.step_into, opts)
+    vim.keymap.set("n", "<leader>bk", dap.step_out, opts)
+    vim.keymap.set("n", "<leader>bh", dap.step_back, opts)
+    vim.keymap.set("n", "<Leader>b.", dap.run_last, opts)
+    vim.keymap.set("n", "<leader>b<C-h>", function() dap.repl.open({}, "leftabove vsplit") end, opts)
+    vim.keymap.set("n", "<leader>b<C-j>", function() dap.repl.open({}, "rightbelow split") end, opts)
+    vim.keymap.set("n", "<leader>b<C-k>", function() dap.repl.open({}, "leftabove split") end, opts)
+    vim.keymap.set("n", "<leader>b<C-l>", function() dap.repl.open({}, "rightbelow vsplit") end, opts)
 end
 
 M.set_lspsaga_mappings = function(opts)
     vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", opts)
+    vim.keymap.set("n", "g/", "<cmd>Lspsaga lsp_finder<CR>", opts)
     vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
     vim.keymap.set("n","gD", "<cmd>Lspsaga goto_definition<CR>", opts)
     vim.keymap.set("n", "gy", "<cmd>Lspsaga peek_type_definition<CR>", opts)
     vim.keymap.set("n","gY", "<cmd>Lspsaga goto_type_definition<CR>", opts)
-    vim.keymap.set({"n","v"}, "ga", "<cmd>Lspsaga code_action<CR>", opts)
-
     vim.keymap.set("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
     vim.keymap.set("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", opts)
     vim.keymap.set("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>", opts)
     vim.keymap.set("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
-
-    vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-    vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-    vim.keymap.set("n", "[E", function()
-      require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, opts)
-    vim.keymap.set("n", "]E", function()
-      require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, opts)
-
+    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
     vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>", opts)
     vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
     vim.keymap.set("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", opts)
     vim.keymap.set("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", opts)
+    vim.keymap.set({"n","v"}, "ga", "<cmd>Lspsaga code_action<CR>", opts)
+    local lspsaga_diagnostic = require("lspsaga.diagnostic")
+    vim.keymap.set("n", "[!", function() lspsaga_diagnostic:goto_prev({ severity = vim.diagnostic.severity.ERROR }) end, opts)
+    vim.keymap.set("n", "]!", function() lspsaga_diagnostic:goto_next({ severity = vim.diagnostic.severity.ERROR }) end, opts)
 end
 
 M.remap_clipboard_actions = function()

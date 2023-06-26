@@ -1,11 +1,20 @@
 local M = {}
 
 function M.setup()
+    M.setup_clipboard()
     M.setup_cursor()
     M.setup_indents()
     M.setup_updatetime()
     M.setup_rulers()
     M.setup_wrap()
+end
+
+function M.setup_clipboard()
+    if vim.fn.has("unnamedplus") then
+        vim.opt.clipboard = "unnamedplus"
+    else
+        vim.opt.clipboard = "unnamed"
+    end
 end
 
 function M.setup_cursor()

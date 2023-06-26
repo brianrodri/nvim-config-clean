@@ -60,11 +60,11 @@ function M.setup_lsp_plugins(use)
 
     use { "glepnir/lspsaga.nvim", branch = "main" }
 end
+
 function M.setup_motion_plugins(use)
     use "tpope/vim-surround"
     use "tpope/vim-unimpaired"
 end
-
 
 function M.setup_search_plugins(use)
     use {
@@ -91,28 +91,6 @@ end
 function M.setup_work_plugins(use)
     local is_work, work = pcall(require, "work")
     if is_work then work.setup_plugins(use) end
-end
-
-function M.setup()
-    local freshly_installed = M.ensure_packer()
-    local packer = require("packer")
-
-    packer.startup(function(use)
-        M.setup_plugins(use)
-        if freshly_installed then packer.sync() end
-    end)
-end
-
-function M.ensure_packer()
-    local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-    if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-        vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-        vim.cmd.packadd("packer.nvim")
-        return true
-    else
-        return false
-    end
 end
 
 return M
