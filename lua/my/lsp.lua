@@ -31,7 +31,6 @@ local M = {}
 function M.setup()
     M.setup_lsp_zero()
     M.setup_cmp()
-    M.setup_lspsaga()
 end
 
 function M.setup_lsp_zero()
@@ -47,13 +46,6 @@ function M.setup_lsp_zero()
         library = {
             plugins = { "nvim-dap-ui", "lspsaga" },
             types = true,
-            expand = my_icons.ui.ArrowClosed,
-            collapse = my_icons.ui.ArrowOpen,
-            code_action = my_icons.ui.Lightbulb,
-            incoming = my_icons.ui.CallIncoming,
-            outgoing = my_icons.ui.CallOutgoing,
-            hover = my_icons.ui.Preview,
-            kind = vim.tbl_extend("force", {}, my_icons.kind), -- No hard feelings
         },
     }
 
@@ -80,14 +72,6 @@ function M.setup_cmp()
             documentation = cmp.config.window.bordered(),
             completion = cmp.config.window.bordered(),
         },
-    }
-end
-
-function M.setup_lspsaga()
-    require("lspsaga").setup {
-        ui = { border = "rounded" },
-        rename = { in_select = false },
-        lightbulb = { enable = false },
     }
 end
 
