@@ -38,7 +38,7 @@ end
 
 function M.setup_git_plugins(use)
 	use("tpope/vim-fugitive")
-	use("airblade/vim-gitgutter")
+	use("lewis6991/gitsigns.nvim")
 end
 
 function M.setup_indentation_plugins(use)
