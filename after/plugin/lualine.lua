@@ -1,10 +1,10 @@
 local function get_os()
-	if vim.fn.has("unix") then
-		return ""
+	if vim.fn.has("mac") then
+		return ""
 	elseif vim.fn.has("win32") or vim.fn.has("win32unix") then
 		return ""
-	elseif vim.fn.has("Macintosh") then
-		return ""
+	elseif vim.fn.has("unix") then
+		return ""
 	end
 end
 
