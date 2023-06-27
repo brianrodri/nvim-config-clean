@@ -59,6 +59,8 @@ function M.setup_lsp_plugins(use)
     use "folke/neodev.nvim"
 
     use { "glepnir/lspsaga.nvim", branch = "main" }
+
+    use { "j-hui/fidget.nvim", tag = "legacy" }
 end
 
 function M.setup_motion_plugins(use)

@@ -19,8 +19,8 @@ local function on_attach(client, bufnr)
 
     if client.name == "jdtls" then
         local jdtls = require("jdtls")
-        jdtls.setup.add_commands()
         jdtls.setup_dap { hotcodereplace = "auto" }
+        jdtls.setup.add_commands() -- Call after setup_dap to include dap commands.
         my_remaps.on_dap_attach(client, bufnr)
     end
 

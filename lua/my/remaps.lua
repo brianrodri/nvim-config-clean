@@ -14,8 +14,8 @@ M.setup = function()
 end
 
 M.on_lsp_attach = function(client, bufnr)
-    local opts = { buffer = bufnr }
     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    local opts = { buffer = bufnr, silent = true }
     M.set_lspsaga_mappings(opts)
     if client.name == "jdtls" then M.set_jdtls_mappings(opts) end
 end
