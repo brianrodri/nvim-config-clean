@@ -1,47 +1,35 @@
 local my_icons = require("my.icons")
 
-local PRIMARY_ACTION_KEY = "<CR>"
-local QUIT_KEYS = { "<ESC>", "<C-c>" }
-local SPLIT_KEYS = "<C-j>"
-local VSPLIT_KEYS = "<C-l>"
 local JUMP_KEYS = "<C-]>"
-local TABE_KEYS = "<C-n>"
+local NEW_SPLIT_KEYS = "<C-j>"
+local NEW_TAB_KEYS = "<C-n>"
+local NEW_VSPLIT_KEYS = "<C-l>"
+local PRIMARY_ACTION_KEY = "<CR>"
+local QUIT_KEYS = { "q", "<C-c>", "<ESC>" }
 
 require("lspsaga").setup({
-	ui = {
-		border = "rounded",
-		expand = my_icons.ui.ArrowClosed,
-		collapse = my_icons.ui.ArrowOpen,
-		code_action = my_icons.ui.Lightbulb,
-		incoming = my_icons.ui.CallIncoming,
-		outgoing = my_icons.ui.CallOutgoing,
-		hover = my_icons.ui.Preview,
-	},
-	finder = {
+	callhierarchy = {
 		keys = {
-			jump_to = PRIMARY_ACTION_KEY,
-			expand_or_jump = JUMP_KEYS,
-			vsplit = VSPLIT_KEYS,
-			split = SPLIT_KEYS,
-			tabe = TABE_KEYS,
+			edit = PRIMARY_ACTION_KEY,
+			jump = JUMP_KEYS,
+			quit = QUIT_KEYS,
+			split = NEW_SPLIT_KEYS,
+			tabe = NEW_TAB_KEYS,
+			vsplit = NEW_VSPLIT_KEYS,
+		},
+	},
+	code_action = {
+		keys = {
 			quit = QUIT_KEYS,
 		},
+		show_server_name = true,
 	},
 	definition = {
 		edit = PRIMARY_ACTION_KEY,
-		vsplit = VSPLIT_KEYS,
-		split = SPLIT_KEYS,
-		tabe = TABE_KEYS,
 		quit = QUIT_KEYS,
-	},
-	code_action = {
-		show_server_name = true,
-		keys = {
-			quit = QUIT_KEYS,
-		},
-	},
-	lightbulb = {
-		enable = false,
+		split = NEW_SPLIT_KEYS,
+		tabe = NEW_TAB_KEYS,
+		vsplit = NEW_VSPLIT_KEYS,
 	},
 	diagnostic = {
 		extend_relatedInformation = true,
@@ -52,10 +40,23 @@ require("lspsaga").setup({
 			quit_in_show = QUIT_KEYS,
 		},
 	},
+	finder = {
+		keys = {
+			expand_or_jump = JUMP_KEYS,
+			jump_to = PRIMARY_ACTION_KEY,
+			quit = QUIT_KEYS,
+			split = NEW_SPLIT_KEYS,
+			tabe = NEW_TAB_KEYS,
+			vsplit = NEW_VSPLIT_KEYS,
+		},
+	},
+	lightbulb = {
+		enable = false,
+	},
 	rename = {
-		in_select = false,
-		exec = PRIMARY_ACTION_KEY,
 		confirm = PRIMARY_ACTION_KEY,
+		exec = PRIMARY_ACTION_KEY,
+		in_select = false,
 		quit = QUIT_KEYS,
 	},
 	outline = {
@@ -64,14 +65,13 @@ require("lspsaga").setup({
 			quit = QUIT_KEYS,
 		},
 	},
-	callhierarchy = {
-		keys = {
-			edit = PRIMARY_ACTION_KEY,
-			vsplit = VSPLIT_KEYS,
-			split = SPLIT_KEYS,
-			tabe = TABE_KEYS,
-			jump = JUMP_KEYS,
-			quit = QUIT_KEYS,
-		},
+	ui = {
+		border = "rounded",
+		code_action = my_icons.ui.Lightbulb,
+		collapse = my_icons.ui.ArrowOpen,
+		expand = my_icons.ui.ArrowClosed,
+		hover = my_icons.ui.Preview,
+		incoming = my_icons.ui.CallIncoming,
+		outgoing = my_icons.ui.CallOutgoing,
 	},
 })

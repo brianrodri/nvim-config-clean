@@ -14,9 +14,9 @@ function M.setup_diagnostics_signs()
     local my_icons = require("my.icons")
     local signs = {
         Error = my_icons.diagnostics.Error,
-        Warn = my_icons.diagnostics.Warning,
         Hint = my_icons.diagnostics.Hint,
         Info = my_icons.diagnostics.Information,
+        Warn = my_icons.diagnostics.Warning,
     }
     for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type

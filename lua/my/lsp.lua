@@ -45,14 +45,18 @@ function M.setup_lsp_zero()
 		on_attach(client, bufnr)
 	end)
 
-	require("neodev").setup({ -- MUST BE SET UP BEFORE LSP-ZERO!
+	M.setup_neodev() -- MUST BE SET UP BEFORE LSP-ZERO!
+
+	lsp.setup()
+end
+
+function M.setup_neodev()
+	require("neodev").setup({
 		library = {
 			plugins = { "nvim-dap-ui", "lspsaga" },
 			types = true,
 		},
 	})
-
-	lsp.setup()
 end
 
 function M.setup_cmp()
@@ -67,8 +71,8 @@ function M.setup_cmp()
 			["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
 		},
 		sources = {
-			{ name = "nvim_lsp" },
 			{ name = "buffer" },
+			{ name = "nvim_lsp" },
 			{ name = "path" },
 		},
 		window = {

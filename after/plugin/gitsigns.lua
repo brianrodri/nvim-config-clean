@@ -18,29 +18,27 @@ end
 local gitsigns = require("gitsigns")
 gitsigns.setup({
 	on_attach = function(bufnr)
-		local function map(mode, l, r, opts)
-			vim.keymap.set(mode, l, r, vim.tbl_extend("keep", { buffer = bufnr }, opts))
+		local function map(mode, lhs, rhs, opts)
+			vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("keep", { buffer = bufnr }, opts))
 		end
 
 		-- Navigation
 		map("n", "]c", function()
 			if vim.wo.diff then
 				return "]c"
+			else
+				vim.schedule(gitsigns.next_hunk)
+				return "<Ignore>"
 			end
-			vim.schedule(function()
-				gitsigns.next_hunk()
-			end)
-			return "<Ignore>"
 		end, { expr = true })
 
 		map("n", "[c", function()
 			if vim.wo.diff then
 				return "[c"
+			else
+				vim.schedule(gitsigns.prev_hunk)
+				return "<Ignore>"
 			end
-			vim.schedule(function()
-				gitsigns.prev_hunk()
-			end)
-			return "<Ignore>"
 		end, { expr = true })
 	end,
 })
