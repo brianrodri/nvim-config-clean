@@ -8,7 +8,6 @@ function M.setup_plugins(use)
 	M.setup_buffer_plugins(use)
 	M.setup_colorscheme_plugins(use)
 	M.setup_file_plugins(use)
-	M.setup_format_plugins(use)
 	M.setup_git_plugins(use)
 	M.setup_indentation_plugins(use)
 	M.setup_lsp_plugins(use)
@@ -30,10 +29,6 @@ end
 
 function M.setup_file_plugins(use)
 	use("nvim-tree/nvim-tree.lua")
-end
-
-function M.setup_format_plugins(use)
-	use("jose-elias-alvarez/null-ls.nvim")
 end
 
 function M.setup_git_plugins(use)
@@ -66,6 +61,8 @@ function M.setup_lsp_plugins(use)
 		},
 	})
 
+	use("jose-elias-alvarez/null-ls.nvim")
+
 	use("folke/neodev.nvim")
 	use({
 		"folke/trouble.nvim",
@@ -79,9 +76,7 @@ function M.setup_lsp_plugins(use)
 			},
 		},
 	})
-
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
-
 	use({ "j-hui/fidget.nvim", tag = "legacy" })
 end
 

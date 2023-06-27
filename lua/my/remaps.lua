@@ -141,7 +141,8 @@ M.remap_file_actions = function()
 end
 
 M.remap_git_actions = function()
-	vim.keymap.set("n", "gK", vim.cmd.GitGutterPreviewHunk)
+	local gitsigns = require("gitsigns")
+	vim.keymap.set("n", "gK", gitsigns.preview_hunk)
 end
 
 M.remap_nvim_tree_actions = function()
