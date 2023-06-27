@@ -15,8 +15,9 @@ end
 
 M.on_lsp_attach = function(client, bufnr)
 	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	local opts = { buffer = bufnr, silent = true }
+	local opts = { buffer = bufnr, noremap = true, silent = true }
 	M.set_lspsaga_mappings(opts)
+	M.set_trouble_mappings(opts)
 	if client.name == "jdtls" then
 		M.set_jdtls_mappings(opts)
 	end
@@ -48,6 +49,15 @@ function M.set_jdtls_mappings(opts)
 	vim.keymap.set("v", "<leader>xm", function()
 		jdtls.extract_method({ visual = true })
 	end, opts)
+end
+
+M.set_trouble_mappings = function(opts)
+    vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", opts)
+    vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", opts)
+    vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", opts)
+    vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", opts)
+    vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", opts)
+    vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", opts)
 end
 
 function M.set_dap_mappings(opts)

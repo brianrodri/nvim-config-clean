@@ -3,10 +3,25 @@ local M = {}
 function M.setup()
 	M.setup_clipboard()
 	M.setup_cursor()
+	M.setup_diagnostics_signs()
 	M.setup_indents()
 	M.setup_updatetime()
 	M.setup_rulers()
 	M.setup_wrap()
+end
+
+function M.setup_diagnostics_signs()
+    local my_icons = require("my.icons")
+    local signs = {
+        Error = my_icons.diagnostics.Error,
+        Warn = my_icons.diagnostics.Warning,
+        Hint = my_icons.diagnostics.Hint,
+        Info = my_icons.diagnostics.Information,
+    }
+    for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+    end
 end
 
 function M.setup_clipboard()

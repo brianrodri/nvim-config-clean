@@ -1,3 +1,5 @@
+local my_icons = require("my.icons")
+
 local M = {}
 
 function M.setup_plugins(use)
@@ -23,6 +25,7 @@ end
 
 function M.setup_colorscheme_plugins(use)
 	use("morhetz/gruvbox")
+	use("folke/lsp-colors.nvim")
 end
 
 function M.setup_file_plugins(use)
@@ -64,6 +67,18 @@ function M.setup_lsp_plugins(use)
 	})
 
 	use("folke/neodev.nvim")
+	use({
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			signs = {
+				error = my_icons.diagnostics.Error,
+				warning = my_icons.diagnostics.Warning,
+				hint = my_icons.diagnostics.Hint,
+				information = my_icons.diagnostics.Information,
+			},
+		},
+	})
 
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
 
