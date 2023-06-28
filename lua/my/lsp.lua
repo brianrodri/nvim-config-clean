@@ -24,6 +24,11 @@ local function on_attach(client, bufnr)
 		jdtls.setup_dap({ hotcodereplace = "auto" })
 		jdtls.setup.add_commands() -- Call after setup_dap to include dap commands.
 		my_remaps.on_dap_attach(client, bufnr)
+	elseif client.name == "jedi_language_server" then
+		require("dap-python").setup(
+			require("mason-registry").get_package("debugpy"):get_install_path() .. "/venv/bin/python"
+		)
+		my_remaps.on_dap_attach(client, bufnr)
 	end
 
 	my_remaps.on_lsp_attach(client, bufnr)

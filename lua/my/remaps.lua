@@ -23,15 +23,19 @@ M.on_lsp_attach = function(client, bufnr)
 	end
 end
 
-M.on_dap_attach = function(_, bufnr)
-	M.set_dap_mappings({ buffer = bufnr })
+M.on_dap_attach = function(client, bufnr)
+	local opts = { buffer = bufnr }
+	M.set_dap_mappings(opts)
+	if client.name == "jedi_language_server" then
+		M.set_dap_python_mappings(opts)
+	end
 end
 
 function M.set_jdtls_mappings(opts)
 	local jdtls = require("jdtls")
 	vim.keymap.set("n", "<C-y>", jdtls.organize_imports, opts)
-	vim.keymap.set("n", "<leader>ta", jdtls.test_class, opts)
 	vim.keymap.set("n", "<leader>tt", jdtls.test_nearest_method, opts)
+	vim.keymap.set("n", "<leader>tT", jdtls.test_class, opts)
 	vim.keymap.set("n", "<leader>t/", jdtls.pick_test, opts)
 	vim.keymap.set("n", "<leader>xv", jdtls.extract_variable, opts)
 	vim.keymap.set("n", "<leader>xV", jdtls.extract_variable_all, opts)
@@ -49,6 +53,12 @@ function M.set_jdtls_mappings(opts)
 	vim.keymap.set("v", "<leader>xm", function()
 		jdtls.extract_method({ visual = true })
 	end, opts)
+end
+
+function M.set_dap_python_mappings(opts)
+	local dap_python = require("dap-python")
+	vim.keymap.set("n", "<leader>tt", dap_python.test_method, opts)
+	vim.keymap.set("n", "<leader>tT", dap_python.test_class, opts)
 end
 
 M.set_trouble_mappings = function(opts)
