@@ -15,7 +15,6 @@ function M.setup_plugins(use)
 	M.setup_search_plugins(use)
 	M.setup_statusline_plugins(use)
 	M.setup_tmux_plugins(use)
-	M.setup_work_plugins(use)
 end
 
 function M.setup_buffer_plugins(use)
@@ -62,8 +61,16 @@ function M.setup_lsp_plugins(use)
 	})
 
 	use({
-		"mfussenegger/nvim-dap-python",
-		dependencies = { "mfussenegger/nvim-dap" },
+		"rcarriga/nvim-dap-ui",
+		requires = {
+			"mfussenegger/nvim-dap",
+			"mfussenegger/nvim-dap-python",
+		},
+		config = function() require("my.plugins.dapui") end,
+	})
+	use({
+		"theHamsta/nvim-dap-virtual-text",
+		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
 	})
 
 	use("jose-elias-alvarez/null-ls.nvim")
@@ -83,6 +90,7 @@ function M.setup_lsp_plugins(use)
 	})
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use({ "j-hui/fidget.nvim", tag = "legacy" })
+	use({ "mfussenegger/nvim-jdtls" })
 end
 
 function M.setup_motion_plugins(use)
@@ -110,13 +118,6 @@ end
 
 function M.setup_tmux_plugins(use)
 	use("aserowy/tmux.nvim")
-end
-
-function M.setup_work_plugins(use)
-	local is_work, work = pcall(require, "work")
-	if is_work then
-		work.setup_plugins(use)
-	end
 end
 
 return M

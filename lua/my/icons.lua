@@ -106,6 +106,7 @@ return {
 		DebugPause = "",
 		DebugRestart = "",
 		DebugStart = "",
+		DebugStepBack = "",
 		DebugStepInto = "",
 		DebugStepOut = "",
 		DebugStepOver = "",

@@ -71,7 +71,7 @@ end
 
 function M.set_dap_mappings(opts)
 	local dap = require("dap")
-	vim.keymap.set("n", "<Leader>B", dap.toggle_breakpoint, opts)
+	vim.keymap.set("n", "<Leader>bb", dap.toggle_breakpoint, opts)
 	vim.keymap.set("n", "<leader>bn", dap.continue, opts)
 	vim.keymap.set("n", "<leader>bl", dap.step_over, opts)
 	vim.keymap.set("n", "<leader>bj", dap.step_into, opts)
@@ -89,6 +89,18 @@ function M.set_dap_mappings(opts)
 	end, opts)
 	vim.keymap.set("n", "<leader>b<C-l>", function()
 		dap.repl.open({}, "rightbelow vsplit")
+	end, opts)
+
+	local dapui = require("dapui")
+	local dap_ui_widgets = require("dap.ui.widgets")
+	vim.keymap.set("n", "<leader>bs", dapui.toggle, opts)
+	vim.keymap.set({"n", "v"}, "<Leader>bK", dap_ui_widgets.hover, opts)
+	vim.keymap.set({"n", "v"}, "<Leader>bd", dap_ui_widgets.preview, opts)
+	vim.keymap.set("n", "<Leader>bF", function()
+		dap_ui_widgets.centered_float(dap_ui_widgets.frames)
+	end, opts)
+	vim.keymap.set("n", "<Leader>bS", function()
+		dap_ui_widgets.centered_float(dap_ui_widgets.scopes)
 	end, opts)
 end
 
