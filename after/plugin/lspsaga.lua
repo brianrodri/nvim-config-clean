@@ -5,7 +5,7 @@ local NEW_SPLIT_KEYS = "<C-j>"
 local NEW_TAB_KEYS = "<C-n>"
 local NEW_VSPLIT_KEYS = "<C-l>"
 local PRIMARY_ACTION_KEY = "<CR>"
-local QUIT_KEYS = { "q", "<C-c>", "<ESC>" }
+local QUIT_KEYS = { "<C-c>", "<ESC>" }
 
 require("lspsaga").setup({
 	callhierarchy = {
