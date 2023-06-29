@@ -61,8 +61,10 @@ function M.setup_lsp_plugins(use)
 		},
 	})
 
-	use("mfussenegger/nvim-dap")
-	use("mfussenegger/nvim-dap-python")
+	use({
+		"mfussenegger/nvim-dap-python",
+		dependencies = { "mfussenegger/nvim-dap" },
+	})
 
 	use("jose-elias-alvarez/null-ls.nvim")
 
