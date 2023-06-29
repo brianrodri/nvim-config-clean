@@ -7,6 +7,7 @@ function M.setup_plugins(use)
 
 	M.setup_buffer_plugins(use)
 	M.setup_colorscheme_plugins(use)
+	M.setup_dap_plugins(use)
 	M.setup_file_plugins(use)
 	M.setup_git_plugins(use)
 	M.setup_indentation_plugins(use)
@@ -24,6 +25,28 @@ end
 function M.setup_colorscheme_plugins(use)
 	use("morhetz/gruvbox")
 	use("folke/lsp-colors.nvim")
+end
+
+function M.setup_dap_plugins(use)
+	use("mfussenegger/nvim-dap")
+
+	use({
+		"rcarriga/nvim-dap-ui",
+		disable = true, -- NOT READY YET
+		requires = { "mfussenegger/nvim-dap" },
+		config = function() require("my.plugins.dapui") end,
+	})
+
+	use({
+		"mfussenegger/nvim-dap-python",
+		requires = { "mfussenegger/nvim-dap" },
+	})
+
+	use({
+		"theHamsta/nvim-dap-virtual-text",
+		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
+		config = function() require("my.plugins.nvim-dap-virtual-text") end,
+	})
 end
 
 function M.setup_file_plugins(use)
@@ -58,20 +81,6 @@ function M.setup_lsp_plugins(use)
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 		},
-	})
-
-	use({
-		"rcarriga/nvim-dap-ui",
-		requires = {
-			"mfussenegger/nvim-dap",
-			"mfussenegger/nvim-dap-python",
-		},
-		config = function() require("my.plugins.dapui") end,
-	})
-	use({
-		"theHamsta/nvim-dap-virtual-text",
-		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
-		config = function() require("my.plugins.nvim-dap-virtual-text") end,
 	})
 
 	use("jose-elias-alvarez/null-ls.nvim")

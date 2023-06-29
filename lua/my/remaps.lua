@@ -91,6 +91,11 @@ function M.set_dap_mappings(opts)
 		dap.repl.open({}, "rightbelow vsplit")
 	end, opts)
 
+	-- NOT READY YET
+	-- M.set_dapui_mappings()
+end
+
+function M.set_dapui_mappings(opts)
 	local dapui = require("dapui")
 	local dap_ui_widgets = require("dap.ui.widgets")
 	vim.keymap.set("n", "<leader>bs", dapui.toggle, opts)
