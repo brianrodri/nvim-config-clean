@@ -71,6 +71,7 @@ function M.setup_lsp_plugins(use)
 	use({
 		"theHamsta/nvim-dap-virtual-text",
 		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
+		config = function() require("my.plugins.nvim-dap-virtual-text") end,
 	})
 
 	use("jose-elias-alvarez/null-ls.nvim")
