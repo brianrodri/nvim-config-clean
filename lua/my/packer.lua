@@ -102,6 +102,7 @@ function M.setup_lsp_plugins(use)
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use({ "j-hui/fidget.nvim", tag = "legacy" })
 	use({ "mfussenegger/nvim-jdtls" })
+	use({ "rcarriga/cmp-dap" })
 end
 
 function M.setup_motion_plugins(use)

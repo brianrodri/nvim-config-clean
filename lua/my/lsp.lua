@@ -75,13 +75,46 @@ function M.setup_cmp()
 			["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
 		},
 		sources = {
-			{ name = "buffer" },
 			{ name = "nvim_lsp" },
 			{ name = "path" },
+			{ name = "buffer" },
 		},
 		window = {
 			documentation = cmp.config.window.bordered(),
 			completion = cmp.config.window.bordered(),
+		},
+	})
+
+	cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+		enabled = function() return require("cmp_dap").is_dap_buffer() end,
+		sources = {
+			{ name = "dap" },
+		},
+	})
+
+	cmp.setup.filetype("gitcommit", {
+		sources = {
+			cmp.config.sources({
+				{ name = "git" },
+			}, {
+				{ name = "buffer" },
+			}),
+		},
+	})
+
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "nvim_lsp" },
+			{ name = "buffer" },
+		},
+	})
+
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+			{ name = "path" },
 		},
 	})
 end
