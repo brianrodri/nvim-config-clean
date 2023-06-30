@@ -15,6 +15,7 @@ function M.setup_plugins(use)
 	M.setup_motion_plugins(use)
 	M.setup_search_plugins(use)
 	M.setup_statusline_plugins(use)
+	M.setup_syntax_plugins(use)
 	M.setup_tmux_plugins(use)
 end
 
@@ -124,6 +125,10 @@ end
 
 function M.setup_statusline_plugins(use)
 	use("nvim-lualine/lualine.nvim")
+end
+
+function M.setup_syntax_plugins(use)
+	use("MaxMEllon/vim-jsx-pretty")
 end
 
 function M.setup_tmux_plugins(use)
