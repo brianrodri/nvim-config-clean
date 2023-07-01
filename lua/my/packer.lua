@@ -35,7 +35,9 @@ function M.setup_dap_plugins(use)
 		"rcarriga/nvim-dap-ui",
 		disable = true, -- NOT READY YET
 		requires = { "mfussenegger/nvim-dap" },
-		config = function() require("my.plugins.dapui") end,
+		config = function()
+			require("my.plugins.dapui")
+		end,
 	})
 
 	use({
@@ -46,7 +48,9 @@ function M.setup_dap_plugins(use)
 	use({
 		"theHamsta/nvim-dap-virtual-text",
 		requires = { "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter" },
-		config = function() require("my.plugins.nvim-dap-virtual-text") end,
+		config = function()
+			require("my.plugins.nvim-dap-virtual-text")
+		end,
 	})
 end
 

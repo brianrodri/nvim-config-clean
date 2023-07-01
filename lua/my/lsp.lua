@@ -86,7 +86,9 @@ function M.setup_cmp()
 	})
 
 	cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-		enabled = function() return require("cmp_dap").is_dap_buffer() end,
+		enabled = function()
+			return require("cmp_dap").is_dap_buffer()
+		end,
 		sources = {
 			{ name = "dap" },
 		},
