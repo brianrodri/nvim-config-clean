@@ -109,6 +109,7 @@ function M.setup_cmp()
 		sources = {
 			{ name = "nvim_lsp" },
 			{ name = "buffer" },
+			{ name = "path" },
 		},
 	})
 

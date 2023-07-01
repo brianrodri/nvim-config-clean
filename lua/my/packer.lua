@@ -31,7 +31,12 @@ function M.setup_buffer_plugins(use)
 end
 
 function M.setup_colorscheme_plugins(use)
-	use("morhetz/gruvbox")
+	use({
+		"morhetz/gruvbox",
+		config = function()
+			require("my.plugins.gruvbox")
+		end,
+	})
 	use("folke/lsp-colors.nvim")
 end
 
@@ -62,16 +67,31 @@ function M.setup_dap_plugins(use)
 end
 
 function M.setup_file_plugins(use)
-	use("nvim-tree/nvim-tree.lua")
+	use({
+		"nvim-tree/nvim-tree.lua",
+		config = function()
+			require("my.plugins.nvim-tree")
+		end,
+	})
 end
 
 function M.setup_git_plugins(use)
 	use("tpope/vim-fugitive")
-	use("lewis6991/gitsigns.nvim")
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("my.plugins.gitsigns")
+		end,
+	})
 end
 
 function M.setup_indentation_plugins(use)
-	use("nmac427/guess-indent.nvim")
+	use({
+		"nmac427/guess-indent.nvim",
+		config = function()
+			require("my.plugins.guess-indent")
+		end,
+	})
 end
 
 function M.setup_lsp_plugins(use)
@@ -79,6 +99,19 @@ function M.setup_lsp_plugins(use)
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
 			pcall(vim.fn.TSUpdate)
+		end,
+		config = function()
+			require("my.plugins.treesitter")
+		end,
+	})
+
+	use({
+		"williamboman/mason.nvim",
+		run = function()
+            pcall(vim.fn.MasonUpdate)
+        end,
+		config = function()
+			require("my.plugins.mason")
 		end,
 	})
 
@@ -95,7 +128,12 @@ function M.setup_lsp_plugins(use)
 		},
 	})
 
-	use("jose-elias-alvarez/null-ls.nvim")
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			require("my.plugins.null-ls")
+		end,
+	})
 
 	use("folke/neodev.nvim")
 	use({
@@ -110,9 +148,26 @@ function M.setup_lsp_plugins(use)
 			},
 		},
 	})
-	use({ "glepnir/lspsaga.nvim", branch = "main" })
-	use({ "j-hui/fidget.nvim", tag = "legacy" })
-	use({ "mfussenegger/nvim-jdtls" })
+	use({
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		config = function()
+			require("my.plugins.lspsaga")
+		end,
+	})
+	use({
+		"j-hui/fidget.nvim",
+		tag = "legacy",
+		config = function()
+			require("my.plugins.fidget")
+		end,
+	})
+	use({
+		"mfussenegger/nvim-jdtls",
+		config = function()
+			require("my.plugins.jdtls")
+		end,
+	})
 	use({ "rcarriga/cmp-dap" })
 end
 
@@ -126,6 +181,9 @@ function M.setup_search_plugins(use)
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.1",
 		requires = { "nvim-lua/plenary.nvim", "BurntSushi/ripgrep", "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("my.plugins.telescope")
+		end,
 	})
 	use("gbrlsnchs/telescope-lsp-handlers.nvim")
 	use("nvim-telescope/telescope-ui-select.nvim")
@@ -136,7 +194,12 @@ function M.setup_register_plugins(use)
 end
 
 function M.setup_statusline_plugins(use)
-	use("nvim-lualine/lualine.nvim")
+	use({
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("my.plugins.lualine")
+		end,
+	})
 end
 
 function M.setup_syntax_plugins(use)
@@ -144,7 +207,32 @@ function M.setup_syntax_plugins(use)
 end
 
 function M.setup_tmux_plugins(use)
-	use("aserowy/tmux.nvim")
+	use({
+		"aserowy/tmux.nvim",
+		config = function()
+			require("my.plugins.tmux")
+		end,
+	})
 end
 
-return M
+local function ensure_packer()
+	local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+
+	if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+		vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+		vim.cmd.packadd("packer.nvim")
+		return true
+	else
+		return false
+	end
+end
+
+local freshly_installed = ensure_packer()
+
+local packer = require("packer")
+packer.startup(function(use)
+	M.setup_plugins(use)
+	if freshly_installed then
+		packer.sync()
+	end
+end)
