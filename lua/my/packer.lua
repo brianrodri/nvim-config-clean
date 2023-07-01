@@ -108,8 +108,8 @@ function M.setup_lsp_plugins(use)
 	use({
 		"williamboman/mason.nvim",
 		run = function()
-            pcall(vim.fn.MasonUpdate)
-        end,
+			pcall(vim.fn.MasonUpdate)
+		end,
 		config = function()
 			require("my.plugins.mason")
 		end,
