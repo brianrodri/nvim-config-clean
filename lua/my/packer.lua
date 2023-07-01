@@ -236,3 +236,11 @@ packer.startup(function(use)
 		packer.sync()
 	end
 end)
+
+-- Auto-sync packer when this file changes.
+vim.cmd([[
+augroup packer_user_config
+autocmd!
+autocmd BufWritePost packer.lua source <afile> | PackerSync
+augroup end
+]])
