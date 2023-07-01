@@ -20,7 +20,14 @@ function M.setup_plugins(use)
 end
 
 function M.setup_buffer_plugins(use)
-	use({ "akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons" })
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "*",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("my.plugins.bufferline")
+		end,
+	})
 end
 
 function M.setup_colorscheme_plugins(use)
