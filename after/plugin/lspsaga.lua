@@ -57,7 +57,7 @@ require("lspsaga").setup({
 		confirm = PRIMARY_ACTION_KEY,
 		exec = PRIMARY_ACTION_KEY,
 		in_select = false,
-		quit = QUIT_KEYS,
+		quit = "<C-c>",
 	},
 	outline = {
 		keys = {
