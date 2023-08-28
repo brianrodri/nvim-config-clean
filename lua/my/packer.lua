@@ -31,13 +31,14 @@ function M.setup_buffer_plugins(use)
 end
 
 function M.setup_colorscheme_plugins(use)
-	use({
-		"morhetz/gruvbox",
-		config = function()
-			require("my.plugins.gruvbox")
-		end,
-	})
 	use("folke/lsp-colors.nvim")
+    use({
+        "folke/tokyonight.nvim",
+        config = function()
+            require("tokyonight").setup({ style = "storm" })
+            vim.cmd("colorscheme tokyonight")
+        end,
+    })
 end
 
 function M.setup_dap_plugins(use)
