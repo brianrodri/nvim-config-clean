@@ -35,7 +35,7 @@ function M.setup_colorscheme_plugins(use)
     use({
         "folke/tokyonight.nvim",
         config = function()
-            require("tokyonight").setup({ style = "storm" })
+            require("tokyonight").setup({ style = "night" })
             vim.cmd("colorscheme tokyonight")
         end,
     })
