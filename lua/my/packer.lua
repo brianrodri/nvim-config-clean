@@ -16,6 +16,7 @@ function M.setup_plugins(use)
     M.setup_search_plugins(use)
     M.setup_statusline_plugins(use)
     M.setup_syntax_plugins(use)
+    M.setup_test_plugins(use)
     M.setup_tmux_plugins(use)
 end
 
@@ -205,6 +206,17 @@ end
 
 function M.setup_syntax_plugins(use)
     use("MaxMEllon/vim-jsx-pretty")
+end
+
+function M.setup_test_plugins(use)
+    use({
+        "andythigpen/nvim-coverage",
+        requires = "nvim-lua/plenary.nvim",
+        config = function() require("coverage").setup({
+            auto_reload = true,
+            commands = true,
+        }) end,
+    })
 end
 
 function M.setup_tmux_plugins(use)
