@@ -18,6 +18,15 @@ M.on_lsp_attach = function(client, bufnr)
     local opts = { buffer = bufnr, noremap = true, silent = true }
     M.set_lspsaga_mappings(opts)
     M.set_trouble_mappings(opts)
+
+    local caps = client.server_capabilities
+    if caps.documentFormattingProvider then
+        vim.keymap.set("n", "<C-y>", function()
+            vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
+            vim.lsp.buf.format({ bufnr = bufnr })
+        end, opts)
+    end
+
     if client.name == "jdtls" then
         M.set_jdtls_mappings(opts)
     end
@@ -33,7 +42,6 @@ end
 
 function M.set_jdtls_mappings(opts)
     local jdtls = require("jdtls")
-    vim.keymap.set("n", "<C-y>", jdtls.organize_imports, opts)
     vim.keymap.set("n", "<leader>tt", jdtls.test_nearest_method, opts)
     vim.keymap.set("n", "<leader>tT", jdtls.test_class, opts)
     vim.keymap.set("n", "<leader>t/", jdtls.pick_test, opts)
