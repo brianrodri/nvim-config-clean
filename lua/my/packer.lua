@@ -130,13 +130,6 @@ function M.setup_lsp_plugins(use)
         },
     })
 
-    use({
-        "jose-elias-alvarez/null-ls.nvim",
-        config = function()
-            require("my.plugins.null-ls")
-        end,
-    })
-
     use("folke/neodev.nvim")
     use({
         "folke/trouble.nvim",
